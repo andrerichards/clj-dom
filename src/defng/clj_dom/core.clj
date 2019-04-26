@@ -20,7 +20,6 @@
 (defn find-first
   "Return the first element at the XPath"
   ([root xpath]
-   (println root " : " xpath)
    (let [xpath-expr (.compile (XPathFactory/instance) xpath (Filters/element))]
      (.evaluateFirst xpath-expr root)))
   ([root xpath namespaces]
@@ -39,13 +38,21 @@
 
 (defn get-value
   "Return the value at the XPath as a String, regardless of whether the XPath points to a element or attribute"
-  [root xpath]
-  (let [paths (clojure.string/split xpath #"/")
-        element-or-attr (last paths)]
-    (if (clojure.string/starts-with? element-or-attr "@")
-      (let [element-path (clojure.string/join "/" (butlast paths))
-            element      (find-first root element-path)]
-        (.getAttributeValue element (subs element-or-attr 1)))
-      (let [element      (find-first root xpath)]
-        (.getValue element))))
-  )
+  ([root xpath]
+   (let [paths (clojure.string/split xpath #"/")
+         element-or-attr (last paths)]
+     (if (clojure.string/starts-with? element-or-attr "@")
+       (let [element-path (clojure.string/join "/" (butlast paths))
+             element (find-first root element-path)]
+         (.getAttributeValue element (subs element-or-attr 1)))
+       (let [element (find-first root xpath)]
+         (.getValue element)))))
+  ([root xpath namespaces]
+   (let [paths (clojure.string/split xpath #"/")
+         element-or-attr (last paths)]
+     (if (clojure.string/starts-with? element-or-attr "@")
+       (let [element-path (clojure.string/join "/" (butlast paths))
+             element (find-first root element-path namespaces)]
+         (.getAttributeValue element (subs element-or-attr 1)))
+       (let [element (find-first root xpath namespaces)]
+         (.getValue element))))))
