@@ -53,6 +53,9 @@
      (if (clojure.string/starts-with? element-or-attr "@")
        (let [element-path (clojure.string/join "/" (butlast paths))
              element (find-first root element-path namespaces)]
-         (.getAttributeValue element (subs element-or-attr 1)))
+         (when element
+           (.getAttributeValue element (subs element-or-attr 1))))
        (let [element (find-first root xpath namespaces)]
-         (.getValue element))))))
+         (when element
+           (.getValue element)))))))
+
