@@ -2,7 +2,8 @@
   (:import (org.jdom2.xpath XPathFactory)
            (org.jdom2.filter Filters)
            (org.jdom2.input SAXBuilder)
-           (java.io StringReader)))
+           (java.io StringReader)
+           (org.jdom2.output XMLOutputter)))
 
 (defn parse-str->Document
   "Parse xml string into JDOM Document"
@@ -59,3 +60,9 @@
          (when element
            (.getValue element)))))))
 
+(defn emit-str
+  "Emit element as XML string"
+  [e]
+  (let [outputter (XMLOutputter.)]
+    (.setEncoding (-> outputter .getFormat) "UTF-8")
+    (.outputString outputter e)))

@@ -1,4 +1,4 @@
-(defproject defng/clj-dom "1.1.0"
+(defproject defng/clj-dom "1.2.0"
   :description "Basic Clojure wrapper for JDOM 2"
   :url "https://github.com/andrerichards/clj-dom"
   :license {:name "Eclipse Public License"

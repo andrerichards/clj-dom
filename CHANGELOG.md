@@ -1,11 +1,20 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+
+## 1.2.0
+### Added
+
+- `emit-str` : Emit element as XML string
+
+### Fixed
+
+- NullPointerException in `get-value`
+
 ## 1.1.0
 ### Added
 
 - `get-value` now supports namespaces
- 
 
 ## 1.0.0
 ### Added
