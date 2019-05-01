@@ -3,7 +3,7 @@
            (org.jdom2.filter Filters)
            (org.jdom2.input SAXBuilder)
            (java.io StringReader)
-           (org.jdom2.output XMLOutputter)))
+           (org.jdom2.output XMLOutputter Format)))
 
 (defn parse-str->Document
   "Parse xml string into JDOM Document"
@@ -66,3 +66,12 @@
   (let [outputter (XMLOutputter.)]
     (.setEncoding (-> outputter .getFormat) "UTF-8")
     (.outputString outputter e)))
+
+
+(defn indent-str
+  "PrettyPrint XML string"
+  [document]
+  (let [outputter (XMLOutputter.)]
+    (.setFormat outputter (Format/getPrettyFormat))
+    (.setEncoding (-> outputter .getFormat) "UTF-8")
+    (.outputString outputter document)))
